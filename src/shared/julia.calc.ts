@@ -1,14 +1,18 @@
 import { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {
-  const { height, width, creal, cimag } = options;
-  const h4 = height / 4;
-  const w4 = width / 4;
+  const { height, width, creal, cimag, factor } = options;
+  const f = Math.floor(factor || 1);
+  const w = width / f;
+  const h = height / f;
+
+  const h4 = w / 4;
+  const w4 = h / 4;
 
   const array: number[] = [];
 
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
       let cx = -2 + x / w4;
       let cy = -2 + y / h4;
       let i = 0;

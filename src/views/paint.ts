@@ -6,16 +6,20 @@ export function paint(
   values: number[],
   pallette: string[]
 ) {
-  const { height, width } = resolution;
+  const { height, width, factor } = resolution;
 
-  for (let y = 0; y < height; y++) {
-    for (let x = 0; x < width; x++) {
-      const i = y * height + x;
+  const f = Math.floor(factor || 1);
+  const w = width / f;
+  const h = height / f;
+
+  for (let y = 0; y < h; y++) {
+    for (let x = 0; x < w; x++) {
+      const i = y * h + x;
       const index = values[i] || 0;
       const color = pallette[index];
 
       ctx.beginPath();
-      ctx.rect(x, y, 1, 1);
+      ctx.rect(x * f, y * f, f, f);
       ctx.fillStyle = color;
       ctx.fill();
     }

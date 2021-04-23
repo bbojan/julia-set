@@ -13,7 +13,7 @@ export function useCanvas() {
 }
 
 export function useRAF(
-  animate: (deltaTime: number, time: number) => number | undefined
+  animate: (deltaTime: number, time: number) => Promise<unknown>
 ) {
   const requestRef = useRef<number>(0);
   const previousTimeRef = useRef<number>(0);
@@ -22,8 +22,7 @@ export function useRAF(
     const callback: FrameRequestCallback = async (time) => {
       if (previousTimeRef.current !== undefined) {
         const deltaTime = time - previousTimeRef.current;
-        const pause = animate(deltaTime, time);
-        pause && (await delayed(pause));
+        await animate(deltaTime, time);
       }
       previousTimeRef.current = time;
       requestRef.current = requestAnimationFrame(callback);
@@ -40,3 +39,12 @@ export const delayed = (timeout: number) =>
       resolve(timeout);
     }, timeout);
   });
+
+export function useInterval(timeout: number, callback: () => void) {
+  useEffect(() => {
+    const id = setInterval(callback, timeout);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
+}
