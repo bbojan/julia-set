@@ -1,9 +1,9 @@
 import { IJuliaOptions } from "../shared/julia.types";
 
 // export interface ICalculatedResponse {
-//   array: Uint8Array;
+//   array: number[];
 // }
 
 export interface IWorkerClient {
-  calculate(options: IJuliaOptions): Promise<Uint8Array>;
+  calculate(options: IJuliaOptions): Promise<Uint8ClampedArray>;
 }

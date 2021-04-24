@@ -9,8 +9,8 @@ export function usePaintCircle(
   circle: ICircle,
   factor?: number
 ) {
-  const factorRef = useRef(factor || 4);
-  factorRef.current = factor || 4;
+  const factorRef = useRef(factor || 1);
+  factorRef.current = factor || 1;
 
   useRequestAnimationFrame(async (delta) => {
     const canvas = canvasRef.current;

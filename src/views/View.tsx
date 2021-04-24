@@ -8,7 +8,7 @@ export const View: FC<{}> = () => {
   const list = useMemo(() => Array.from(Array(10000).keys()), []);
 
   const [code, setCode] = useState("main");
-  const [factor, setFactor] = useState(4);
+  const [factor, setFactor] = useState(1);
   const [option, setOption] = useState(0);
 
   const [text, setText] = useState("");
@@ -18,7 +18,6 @@ export const View: FC<{}> = () => {
     fetch("https://unpkg.com/react@17.0.2/umd/react.development.js")
       .then((r) => r.text())
       .then((t) => {
-        debugger;
         setText(t);
       });
   }, []);

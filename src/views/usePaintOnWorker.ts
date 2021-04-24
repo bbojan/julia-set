@@ -1,24 +1,22 @@
-import { MutableRefObject, useMemo, useRef } from "react";
+import { MutableRefObject, useRef } from "react";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { useWorker } from "../hooks/useWorker";
-import { jAnimate, jCreateColorsPallete } from "../shared/julia.calc";
+import { jAnimate } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
-import { paint } from "./paint";
 
 export function usePaintOnWorker(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
   ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
   factor?: number
 ) {
-  const pallete = useMemo(jCreateColorsPallete, []);
   const frame = useRef(0);
-  const factorRef = useRef(factor || 4);
-  factorRef.current = factor || 4;
+  const factorRef = useRef(factor || 1);
+  factorRef.current = factor || 1;
 
   const workerRef = useWorker();
 
   const isCalculatingRef = useRef(false);
-  const arrayRef = useRef<Uint8Array | null>(null);
+  const arrayRef = useRef<Uint8ClampedArray | null>(null);
 
   useRequestAnimationFrame(async (delta) => {
     const worker = workerRef.current;
@@ -47,7 +45,8 @@ export function usePaintOnWorker(
 
     const array = arrayRef.current;
     if (array) {
-      paint(ctx, options, array, pallete);
+      const img = new ImageData(array, resolution.width, resolution.height);
+      ctx.putImageData(img, 0, 0);
     }
 
     document.title = `${(1000 / delta).toFixed(2)} FPS`;

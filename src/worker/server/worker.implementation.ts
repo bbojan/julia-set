@@ -4,7 +4,9 @@ import { fixReactRefreshInWorker } from "./fixReactRefresh";
 
 fixReactRefreshInWorker();
 
-export function calculateImplementation(options: IJuliaOptions): Uint8Array {
+export function calculateImplementation(
+  options: IJuliaOptions
+): Uint8ClampedArray {
   const array = jCalculateArray(options);
   return array;
 }

@@ -1,3 +1,4 @@
+import glur from "glur";
 import { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {
@@ -9,7 +10,9 @@ export function jCalculateArray(options: IJuliaOptions) {
   const h4 = w / 4;
   const w4 = h / 4;
 
-  const array = new Uint8Array(w * h);
+  let array = new Uint8ClampedArray(w * h * 4);
+  const pallete = jCreateColors();
+
   let j = 0;
 
   for (let y = 0; y < h; y++) {
@@ -25,10 +28,17 @@ export function jCalculateArray(options: IJuliaOptions) {
         i++;
       } while (cx * cx + cy * cy < 4 && i < 25);
 
-      array[j] = i;
-      j++;
+      const colors = pallete[i];
+      array[j + 0] = colors[0];
+      array[j + 1] = colors[1];
+      array[j + 2] = colors[2];
+      array[j + 3] = colors[3];
+
+      j += 4;
     }
   }
+
+  glur(array, w, h, 8);
 
   return array;
 }
@@ -39,21 +49,18 @@ export function jAnimate(frame: number): IJuliaParams {
   return { creal, cimag };
 }
 
-export function jCreateColorsPallete() {
-  const pallette: string[] = [];
+export function jCreateColors() {
+  const pallette: number[][] = [];
 
   for (
     let x = 0;
     x < 9;
     x++ // this loop populates the color pallette array
   ) {
-    let color = (31 * x).toString(16); // convert the number to hex
-    if (color.length === 1) {
-      color = "0" + color; // add a zero in front if only one hex digit
-    }
-    pallette[x] = "#" + color + color + "ff"; // colors 0-8: the Red and Green components change, Blue=FF
-    pallette[x + 8] = "#00ff" + color; // colors 8-16: the Blue component changes, Red and Green=FF
-    pallette[17 + x] = "#" + color + "0000"; // colors 17-25: the Red component changes, Green and Blue=0
+    let color = 31 * x; // convert the number to hex
+    pallette[x] = [color, color, 255, 255]; // "#" + color + color + "ff"; // colors 0-8: the Red and Green components change, Blue=FF
+    pallette[x + 8] = [0, 255, color, 255]; // "#00ff" + color; // colors 8-16: the Blue component changes, Red and Green=FF
+    pallette[17 + x] = [color, 0, 0, 255]; //  "#" + color + "0000"; // colors 17-25: the Red component changes, Green and Blue=0
   }
 
   return pallette;
