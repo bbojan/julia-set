@@ -1,12 +1,10 @@
-import { MutableRefObject, useEffect, useMemo, useRef } from "react";
+import { MutableRefObject, useMemo, useRef } from "react";
+import { ICircle } from "../hooks/useCircle";
+import { useRequestAnimationFrame } from "../hooks/useTime";
+import { useWorker } from "../hooks/useWorker";
 import { jAnimate, jCreateColorsPallete } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
-import { createWorkerClient } from "../worker/worker.client";
-import { IWorkerClient } from "../worker/worker.types";
-import { paint } from "./paint";
-import { useRAF } from "./useCanvas";
-import { ICircle } from "./useCircle";
-import { paintCircle } from "./usePaintOnMain";
+import { paint, paintCircle } from "./paint";
 
 export function usePaintOnWorker(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
@@ -16,23 +14,15 @@ export function usePaintOnWorker(
 ) {
   const pallete = useMemo(jCreateColorsPallete, []);
   const frame = useRef(0);
-  const workerRef = useRef<IWorkerClient | null>(null);
+  const factorRef = useRef(factor || 4);
+  factorRef.current = factor || 4;
 
-  useEffect(() => {
-    workerRef.current = createWorkerClient();
-    return () => {
-      const worker = (workerRef.current as unknown) as Worker;
-      if (worker) {
-        worker.terminate();
-        workerRef.current = null;
-      }
-    };
-  }, []);
+  const workerRef = useWorker();
 
   const isCalculatingRef = useRef(false);
   const arrayRef = useRef<number[] | null>(null);
 
-  useRAF(async (delta) => {
+  useRequestAnimationFrame(async (delta) => {
     const worker = workerRef.current;
     if (!worker) return;
     const canvas = canvasRef.current;
@@ -43,7 +33,7 @@ export function usePaintOnWorker(
     const resolution: IJuliaResolution = {
       width: canvas?.width || 960,
       height: canvas?.height || 540,
-      factor,
+      factor: factorRef.current,
     };
 
     frame.current = frame.current + 1;
@@ -51,16 +41,27 @@ export function usePaintOnWorker(
 
     const options: IJuliaOptions = { ...resolution, ...params };
 
-    if (isCalculatingRef.current) {
-      const array = arrayRef.current;
-      if (array) {
-        paint(ctx, options, array, pallete);
-      }
-    } else {
+    // if (!isCalculatingRef.current) {
+    //   isCalculatingRef.current = true;
+    //   const { array } = await worker.calculate(options);
+    //   arrayRef.current = array;
+    //   isCalculatingRef.current = false;
+    // }
+
+    if (!isCalculatingRef.current) {
       isCalculatingRef.current = true;
-      const { array } = await worker.calculate(options);
-      arrayRef.current = array;
-      isCalculatingRef.current = false;
+      worker
+        .calculate(options)
+        .then(({ array }) => {
+          arrayRef.current = array;
+        })
+        .finally(() => {
+          isCalculatingRef.current = false;
+        });
+    }
+
+    const array = arrayRef.current;
+    if (array) {
       paint(ctx, options, array, pallete);
     }
 

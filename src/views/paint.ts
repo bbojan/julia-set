@@ -1,4 +1,7 @@
+import { ICircle } from "../hooks/useCircle";
 import { IJuliaResolution } from "../shared/julia.types";
+
+export const K_Resolution = 640;
 
 export function paint(
   ctx: CanvasRenderingContext2D,
@@ -24,4 +27,15 @@ export function paint(
       ctx.fill();
     }
   }
+}
+
+export function paintCircle(ctx: CanvasRenderingContext2D, circle: ICircle) {
+  const { xRef, yRef, radius } = circle;
+  const x = xRef.current;
+  const y = yRef.current;
+
+  ctx.beginPath();
+  ctx.arc(x, y, radius, 0, Math.PI * 2);
+  ctx.fillStyle = "yellow";
+  ctx.fill();
 }

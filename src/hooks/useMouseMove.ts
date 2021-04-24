@@ -1,12 +1,11 @@
 import { MutableRefObject, useEffect, useRef } from "react";
 
-export function useCircle(
-  canvasRef: MutableRefObject<HTMLCanvasElement | null>
-): ICircle {
+export function useMouseMove(
+  canvasRef: MutableRefObject<HTMLCanvasElement | null>,
+  hitTest: (points: { x: number; y: number; ex: number; ey: number }) => boolean
+) {
   const xRef = useRef(50);
   const yRef = useRef(50);
-
-  const radius = 40;
 
   const capturedRef = useRef(false);
 
@@ -16,9 +15,10 @@ export function useCircle(
       const y = yRef.current;
       const ex = ev.offsetX || 0;
       const ey = ev.offsetY || 0;
-      const distance = Math.sqrt((x - ex) * (x - ex) + (y - ey) * (y - ey));
 
-      if (distance < radius) {
+      const hit = hitTest({ x, y, ex, ey });
+
+      if (hit) {
         capturedRef.current = true;
       }
     };
@@ -48,11 +48,5 @@ export function useCircle(
     };
   }, []);
 
-  return { xRef, yRef, radius };
-}
-
-export interface ICircle {
-  xRef: MutableRefObject<number>;
-  yRef: MutableRefObject<number>;
-  radius: number;
+  return { xRef, yRef };
 }

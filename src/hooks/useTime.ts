@@ -1,18 +1,22 @@
 import { useEffect, useRef } from "react";
 
-export function useCanvas() {
-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
-  useEffect(() => {
-    if (canvasRef.current) {
-      ctxRef.current = canvasRef.current.getContext("2d");
-    }
-  }, []);
+export const delayed = (timeout: number) =>
+  new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(timeout);
+    }, timeout);
+  });
 
-  return { canvasRef, ctxRef };
+export function useInterval(timeout: number, callback: () => void) {
+  useEffect(() => {
+    const id = setInterval(callback, timeout);
+    return () => {
+      clearInterval(id);
+    };
+  }, []);
 }
 
-export function useRAF(
+export function useRequestAnimationFrame(
   animate: (deltaTime: number, time: number) => Promise<unknown>
 ) {
   const requestRef = useRef<number>(0);
@@ -33,18 +37,8 @@ export function useRAF(
   }, []);
 }
 
-export const delayed = (timeout: number) =>
-  new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(timeout);
-    }, timeout);
-  });
-
-export function useInterval(timeout: number, callback: () => void) {
-  useEffect(() => {
-    const id = setInterval(callback, timeout);
-    return () => {
-      clearInterval(id);
-    };
-  }, []);
+export function formatedTime() {
+  const d = new Date();
+  const time = `${d.getHours()}:${d.getMinutes()} | ${d.getSeconds()},${d.getMilliseconds()}`;
+  return time;
 }
