@@ -3,6 +3,12 @@ declare module "comlink-loader!*" {
     constructor();
 
     calculate(options: any): Promise<any>;
+
+    expensiveOperation(
+      options: any,
+      callback: (status: number) => void,
+      ask: (v: number) => Promise<number>
+    ): Promise<any>;
   }
 
   export = WebpackWorker;

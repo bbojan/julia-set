@@ -3,6 +3,7 @@ import { CanvasCircle } from "./CanvasCircle";
 import { CanvasMain } from "./CanvasMain";
 import { CanvasWorker } from "./CanvasWorker";
 import { Clock } from "./Clock";
+import { ExpensiveOperation } from "./ExpensiveOperation";
 
 export const View: FC<{}> = () => {
   const blurs = useMemo(() => Array.from(Array(14).keys()), []);
@@ -11,6 +12,7 @@ export const View: FC<{}> = () => {
   const [code, setCode] = useState("main");
   const [factor, setFactor] = useState(2);
   const [option, setOption] = useState(0);
+  const [expensive, setExpensive] = useState(false);
 
   const [text, setText] = useState("");
 
@@ -30,7 +32,20 @@ export const View: FC<{}> = () => {
         {code === "worker" && <CanvasWorker factor={factor} />}
         <CanvasCircle />
       </div>
-      <Clock />
+      <div>
+        <Clock />
+        <label>
+          <p>Expensive Worker</p>
+          <p>Operation</p>
+          <input
+            name="expensive"
+            type="checkbox"
+            checked={expensive}
+            onChange={() => setExpensive((p) => !p)}
+          />
+        </label>
+        {expensive && <ExpensiveOperation />}
+      </div>
       <div style={{ width: 210 }}>
         <div style={{ marginBottom: 40 }}>
           <p>

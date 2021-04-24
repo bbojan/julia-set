@@ -20,6 +20,7 @@ export function useMouseMove(
 
       if (hit) {
         capturedRef.current = true;
+        document.body.style.cursor = "grabbing";
       }
     };
     const onmousemove = (ev: MouseEvent) => {
@@ -30,6 +31,7 @@ export function useMouseMove(
     };
     const onmouseup = (ev: MouseEvent) => {
       capturedRef.current = false;
+      document.body.style.cursor = "grab";
     };
 
     const canvas = canvasRef.current;
