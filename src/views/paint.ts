@@ -1,12 +1,12 @@
 import { ICircle } from "../hooks/useCircle";
 import { IJuliaResolution } from "../shared/julia.types";
 
-export const K_Resolution = 800;
+export const K_Resolution = 640;
 
 export function paint(
   ctx: CanvasRenderingContext2D,
   resolution: IJuliaResolution,
-  values: number[],
+  values: Uint8Array,
   pallette: string[]
 ) {
   const { height, width, factor } = resolution;

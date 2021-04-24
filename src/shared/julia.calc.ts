@@ -9,7 +9,8 @@ export function jCalculateArray(options: IJuliaOptions) {
   const h4 = w / 4;
   const w4 = h / 4;
 
-  const array: number[] = [];
+  const array = new Uint8Array(w * h);
+  let j = 0;
 
   for (let y = 0; y < h; y++) {
     for (let x = 0; x < w; x++) {
@@ -24,7 +25,8 @@ export function jCalculateArray(options: IJuliaOptions) {
         i++;
       } while (cx * cx + cy * cy < 4 && i < 25);
 
-      array.push(i);
+      array[j] = i;
+      j++;
     }
   }
 

@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { CanvasCircle } from "./CanvasCircle";
 import { CanvasMain } from "./CanvasMain";
 import { CanvasWorker } from "./CanvasWorker";
@@ -11,6 +11,18 @@ export const View: FC<{}> = () => {
   const [factor, setFactor] = useState(4);
   const [option, setOption] = useState(0);
 
+  const [text, setText] = useState("");
+
+  useEffect(() => {
+    //
+    fetch("https://unpkg.com/react@17.0.2/umd/react.development.js")
+      .then((r) => r.text())
+      .then((t) => {
+        debugger;
+        setText(t);
+      });
+  }, []);
+
   return (
     <div className="App">
       <div style={{ position: "relative", margin: 8 }}>
@@ -20,7 +32,7 @@ export const View: FC<{}> = () => {
       </div>
       <Clock />
       <div>
-        <div style={{ width: 220, height: 640 }}>
+        <div style={{ width: 210, height: 640 }}>
           <p>
             <input
               type="radio"
@@ -46,7 +58,7 @@ export const View: FC<{}> = () => {
         </div>
       </div>
       <div>
-        <div style={{ width: 220, height: 640 }}>
+        <div style={{ width: 160, height: 640 }}>
           <p>
             <input
               type="radio"
@@ -83,7 +95,7 @@ export const View: FC<{}> = () => {
         </div>
       </div>
       <div>
-        <div style={{ overflowY: "scroll", width: 200, height: 640 }}>
+        <div style={{ overflowY: "scroll", width: 160, height: 640 }}>
           {list.map((v) => {
             return (
               <p key={v}>
@@ -101,6 +113,14 @@ export const View: FC<{}> = () => {
           })}
         </div>
       </div>
+      <div
+        style={{
+          overflowY: "scroll",
+          width: 400,
+          height: 640,
+        }}
+        dangerouslySetInnerHTML={{ __html: text }}
+      />
     </div>
   );
 };

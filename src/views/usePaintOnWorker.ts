@@ -18,7 +18,7 @@ export function usePaintOnWorker(
   const workerRef = useWorker();
 
   const isCalculatingRef = useRef(false);
-  const arrayRef = useRef<number[] | null>(null);
+  const arrayRef = useRef<Uint8Array | null>(null);
 
   useRequestAnimationFrame(async (delta) => {
     const worker = workerRef.current;
@@ -41,8 +41,7 @@ export function usePaintOnWorker(
 
     if (!isCalculatingRef.current) {
       isCalculatingRef.current = true;
-      const { array } = await worker.calculate(options);
-      arrayRef.current = array;
+      arrayRef.current = await worker.calculate(options);
       isCalculatingRef.current = false;
     }
 
@@ -51,6 +50,8 @@ export function usePaintOnWorker(
       paint(ctx, options, array, pallete);
     }
 
-    return 0;
+    document.title = `${(1000 / delta).toFixed(2)} FPS`;
+
+    return Promise.resolve();
   });
 }

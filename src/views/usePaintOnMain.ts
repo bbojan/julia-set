@@ -38,6 +38,8 @@ export function usePaintOnMain(
 
     paint(ctx, options, values, pallete);
 
+    document.title = `${(1000 / delta).toFixed(2)} FPS`;
+
     // return await delayed(50); // pause in ms
     return Promise.resolve();
   });
