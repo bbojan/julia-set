@@ -3,10 +3,10 @@ import { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {
   const { height, width, creal, cimag, factor } = options;
-  const f = Math.floor(factor || 1);
-  const w = width / f;
-  const h = height / f;
+  const f = Math.floor(factor || 0);
 
+  const w = width;
+  const h = height;
   const h4 = w / 4;
   const w4 = h / 4;
 
@@ -38,7 +38,7 @@ export function jCalculateArray(options: IJuliaOptions) {
     }
   }
 
-  glur(array, w, h, 8);
+  glur(array, w, h, f);
 
   return array;
 }

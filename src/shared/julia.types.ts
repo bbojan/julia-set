@@ -1,6 +1,4 @@
-export interface IJuliaOptions extends IJuliaResolution, IJuliaParams {
-  sab?: ArrayBuffer;
-}
+export interface IJuliaOptions extends IJuliaResolution, IJuliaParams {}
 
 export interface IJuliaResolution {
   width: number;

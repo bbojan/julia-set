@@ -8,11 +8,14 @@ export const Clock: FC<{}> = memo(() => {
     setCount((c) => c + 1);
   });
 
+  const ts = formatedTime();
+
   return (
     <header className="App-header">
       <p>Julia set</p>
       <p>{count}</p>
-      <p>{formatedTime()}</p>
+      <p>{ts[0]}</p>
+      <p>{ts[1]}</p>
     </header>
   );
 });

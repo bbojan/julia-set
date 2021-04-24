@@ -39,6 +39,8 @@ export function useRequestAnimationFrame(
 
 export function formatedTime() {
   const d = new Date();
-  const time = `${d.getHours()}:${d.getMinutes()} | ${d.getSeconds()},${d.getMilliseconds()}`;
-  return time;
+  return [
+    `${d.getHours()}:${d.getMinutes()}`,
+    `${d.getSeconds()},${d.getMilliseconds()}`,
+  ];
 }

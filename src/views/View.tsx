@@ -5,10 +5,11 @@ import { CanvasWorker } from "./CanvasWorker";
 import { Clock } from "./Clock";
 
 export const View: FC<{}> = () => {
+  const blurs = useMemo(() => Array.from(Array(14).keys()), []);
   const list = useMemo(() => Array.from(Array(10000).keys()), []);
 
   const [code, setCode] = useState("main");
-  const [factor, setFactor] = useState(1);
+  const [factor, setFactor] = useState(2);
   const [option, setOption] = useState(0);
 
   const [text, setText] = useState("");
@@ -30,8 +31,8 @@ export const View: FC<{}> = () => {
         <CanvasCircle />
       </div>
       <Clock />
-      <div>
-        <div style={{ width: 210, height: 640 }}>
+      <div style={{ width: 210 }}>
+        <div style={{ marginBottom: 40 }}>
           <p>
             <input
               type="radio"
@@ -55,46 +56,28 @@ export const View: FC<{}> = () => {
             <span>Paint on Worker thread</span>
           </p>
         </div>
-      </div>
-      <div>
-        <div style={{ width: 160, height: 640 }}>
-          <p>
-            <input
-              type="radio"
-              key={4}
-              value={4}
-              name={`Divide by 4`}
-              checked={factor === 4}
-              onChange={() => setFactor(4)}
-            />
-            <span>Divide by 4</span>
-          </p>
-          <p>
-            <input
-              type="radio"
-              key={2}
-              value={2}
-              name={`Divide by 2`}
-              checked={factor === 2}
-              onChange={() => setFactor(2)}
-            />
-            <span>Divide by 2</span>
-          </p>
-          <p>
-            <input
-              type="radio"
-              key={1}
-              value={1}
-              name={`Divide by 1`}
-              checked={factor === 1}
-              onChange={() => setFactor(1)}
-            />
-            <span>Divide by 1</span>
-          </p>
+        <div>
+          {blurs.map((v, i) => {
+            const b = v * 2;
+            return (
+              <p key={i}>
+                <input
+                  type="radio"
+                  key={i}
+                  value={b}
+                  name={`Blur ${b} px`}
+                  checked={factor === b}
+                  onChange={() => setFactor(b)}
+                />
+                <span>Blur {b} px</span>
+              </p>
+            );
+          })}
         </div>
       </div>
+
       <div>
-        <div style={{ overflowY: "scroll", width: 160, height: 640 }}>
+        <div style={{ overflowY: "scroll", width: 150, height: 640 }}>
           {list.map((v) => {
             return (
               <p key={v}>

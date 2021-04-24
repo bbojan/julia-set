@@ -2,6 +2,7 @@ import { MutableRefObject, useRef } from "react";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { jAnimate, jCalculateArray } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
+import { fps } from "./paint";
 
 export function usePaintOnMain(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
@@ -9,11 +10,8 @@ export function usePaintOnMain(
   factor?: number
 ) {
   const frame = useRef(0);
-  const factorRef = useRef(factor || 1);
-  factorRef.current = factor || 1;
-
-  //const sab = new ArrayBuffer(w * h * 4);
-  // const sabView = new Uint8ClampedArray(sab);
+  const factorRef = useRef(factor || 0);
+  factorRef.current = factor || 0;
 
   useRequestAnimationFrame(async (delta) => {
     const canvas = canvasRef.current;
@@ -36,7 +34,7 @@ export function usePaintOnMain(
     const img = new ImageData(values, resolution.width, resolution.height);
     ctx.putImageData(img, 0, 0);
 
-    document.title = `${(1000 / delta).toFixed(2)} FPS`;
+    fps(true, delta);
 
     return Promise.resolve();
   });

@@ -3,6 +3,7 @@ import { useRequestAnimationFrame } from "../hooks/useTime";
 import { useWorker } from "../hooks/useWorker";
 import { jAnimate } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
+import { fps } from "./paint";
 
 export function usePaintOnWorker(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
@@ -10,8 +11,8 @@ export function usePaintOnWorker(
   factor?: number
 ) {
   const frame = useRef(0);
-  const factorRef = useRef(factor || 1);
-  factorRef.current = factor || 1;
+  const factorRef = useRef(factor || 0);
+  factorRef.current = factor || 0;
 
   const workerRef = useWorker();
 
@@ -49,7 +50,7 @@ export function usePaintOnWorker(
       ctx.putImageData(img, 0, 0);
     }
 
-    document.title = `${(1000 / delta).toFixed(2)} FPS`;
+    fps(true, delta);
 
     return Promise.resolve();
   });

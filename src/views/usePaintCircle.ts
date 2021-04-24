@@ -1,7 +1,7 @@
 import { MutableRefObject, useRef } from "react";
 import { ICircle } from "../hooks/useCircle";
 import { useRequestAnimationFrame } from "../hooks/useTime";
-import { paintCircle } from "./paint";
+import { fps, paintCircle } from "./paint";
 
 export function usePaintCircle(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
@@ -9,8 +9,8 @@ export function usePaintCircle(
   circle: ICircle,
   factor?: number
 ) {
-  const factorRef = useRef(factor || 1);
-  factorRef.current = factor || 1;
+  const factorRef = useRef(factor || 0);
+  factorRef.current = factor || 0;
 
   useRequestAnimationFrame(async (delta) => {
     const canvas = canvasRef.current;
@@ -25,6 +25,8 @@ export function usePaintCircle(
     // alpha
 
     paintCircle(ctx, circle);
+
+    fps(false, delta);
 
     return Promise.resolve();
   });
