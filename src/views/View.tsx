@@ -1,4 +1,5 @@
 import { FC, useMemo, useState } from "react";
+import { CanvasCircle } from "./CanvasCircle";
 import { CanvasMain } from "./CanvasMain";
 import { CanvasWorker } from "./CanvasWorker";
 import { Clock } from "./Clock";
@@ -12,8 +13,11 @@ export const View: FC<{}> = () => {
 
   return (
     <div className="App">
-      {code === "main" && <CanvasMain factor={factor} />}
-      {code === "worker" && <CanvasWorker factor={factor} />}
+      <div style={{ position: "relative", margin: 8 }}>
+        {code === "main" && <CanvasMain factor={factor} />}
+        {code === "worker" && <CanvasWorker factor={factor} />}
+        <CanvasCircle />
+      </div>
       <Clock />
       <div>
         <div style={{ width: 220, height: 640 }}>

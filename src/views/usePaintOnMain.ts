@@ -1,18 +1,16 @@
 import { MutableRefObject, useMemo, useRef } from "react";
-import { ICircle } from "../hooks/useCircle";
-import { delayed, useRequestAnimationFrame } from "../hooks/useTime";
+import { useRequestAnimationFrame } from "../hooks/useTime";
 import {
   jAnimate,
   jCalculateArray,
   jCreateColorsPallete,
 } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
-import { paint, paintCircle } from "./paint";
+import { paint } from "./paint";
 
 export function usePaintOnMain(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
   ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
-  circle: ICircle,
   factor?: number
 ) {
   const pallete = useMemo(jCreateColorsPallete, []);
@@ -40,8 +38,7 @@ export function usePaintOnMain(
 
     paint(ctx, options, values, pallete);
 
-    paintCircle(ctx, circle);
-
-    return await delayed(50); // pause in ms
+    // return await delayed(50); // pause in ms
+    return Promise.resolve();
   });
 }

@@ -21,10 +21,7 @@ export function usePaintCircle(
     // alpha
     const w = canvasRef.current?.width || 1;
     const h = canvasRef.current?.height || 1;
-    ctx.beginPath();
-    ctx.rect(0, 0, w, h);
-    ctx.fillStyle = "transaprent";
-    ctx.fill();
+    ctx.clearRect(0, 0, w, h);
     // alpha
 
     paintCircle(ctx, circle);

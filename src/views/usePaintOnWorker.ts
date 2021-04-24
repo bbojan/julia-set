@@ -1,15 +1,13 @@
 import { MutableRefObject, useMemo, useRef } from "react";
-import { ICircle } from "../hooks/useCircle";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { useWorker } from "../hooks/useWorker";
 import { jAnimate, jCreateColorsPallete } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
-import { paint, paintCircle } from "./paint";
+import { paint } from "./paint";
 
 export function usePaintOnWorker(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
   ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
-  circle: ICircle,
   factor?: number
 ) {
   const pallete = useMemo(jCreateColorsPallete, []);
@@ -41,31 +39,17 @@ export function usePaintOnWorker(
 
     const options: IJuliaOptions = { ...resolution, ...params };
 
-    // if (!isCalculatingRef.current) {
-    //   isCalculatingRef.current = true;
-    //   const { array } = await worker.calculate(options);
-    //   arrayRef.current = array;
-    //   isCalculatingRef.current = false;
-    // }
-
     if (!isCalculatingRef.current) {
       isCalculatingRef.current = true;
-      worker
-        .calculate(options)
-        .then(({ array }) => {
-          arrayRef.current = array;
-        })
-        .finally(() => {
-          isCalculatingRef.current = false;
-        });
+      const { array } = await worker.calculate(options);
+      arrayRef.current = array;
+      isCalculatingRef.current = false;
     }
 
     const array = arrayRef.current;
     if (array) {
       paint(ctx, options, array, pallete);
     }
-
-    paintCircle(ctx, circle);
 
     return 0;
   });

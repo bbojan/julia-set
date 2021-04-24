@@ -11,6 +11,16 @@ export const CanvasCircle: FC<{}> = memo((props) => {
   usePaintCircle(canvasRef, ctxRef, circle, 1);
 
   return (
-    <canvas ref={canvasRef} width={K_Resolution} height={K_Resolution}></canvas>
+    <canvas
+      ref={canvasRef}
+      width={K_Resolution}
+      height={K_Resolution}
+      style={{
+        position: "absolute",
+        top: 0,
+        left: 0,
+        bottom: 0,
+      }}
+    ></canvas>
   );
 });
