@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/julia-set/static/css/main.a392491a.chunk.css",
-    "main.js": "/julia-set/static/js/main.c9103d26.chunk.js",
-    "main.js.map": "/julia-set/static/js/main.c9103d26.chunk.js.map",
+    "main.js": "/julia-set/static/js/main.c24253ae.chunk.js",
+    "main.js.map": "/julia-set/static/js/main.c24253ae.chunk.js.map",
     "runtime-main.js": "/julia-set/static/js/runtime-main.4a77e4f1.js",
     "runtime-main.js.map": "/julia-set/static/js/runtime-main.4a77e4f1.js.map",
-    "static/js/2.b46fb55a.chunk.js": "/julia-set/static/js/2.b46fb55a.chunk.js",
-    "static/js/2.b46fb55a.chunk.js.map": "/julia-set/static/js/2.b46fb55a.chunk.js.map",
+    "static/js/2.64eca28b.chunk.js": "/julia-set/static/js/2.64eca28b.chunk.js",
+    "static/js/2.64eca28b.chunk.js.map": "/julia-set/static/js/2.64eca28b.chunk.js.map",
     "static/js/3.6df1f42b.chunk.js": "/julia-set/static/js/3.6df1f42b.chunk.js",
     "static/js/3.6df1f42b.chunk.js.map": "/julia-set/static/js/3.6df1f42b.chunk.js.map",
-    "87e9538bbd5cba1b058c.worker.js": "/julia-set/87e9538bbd5cba1b058c.worker.js",
-    "87e9538bbd5cba1b058c.worker.js.map": "/julia-set/87e9538bbd5cba1b058c.worker.js.map",
+    "3f2435eb128c4363065d.worker.js": "/julia-set/3f2435eb128c4363065d.worker.js",
+    "3f2435eb128c4363065d.worker.js.map": "/julia-set/3f2435eb128c4363065d.worker.js.map",
     "index.html": "/julia-set/index.html",
     "static/css/main.a392491a.chunk.css.map": "/julia-set/static/css/main.a392491a.chunk.css.map",
-    "static/js/2.b46fb55a.chunk.js.LICENSE.txt": "/julia-set/static/js/2.b46fb55a.chunk.js.LICENSE.txt"
+    "static/js/2.64eca28b.chunk.js.LICENSE.txt": "/julia-set/static/js/2.64eca28b.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.4a77e4f1.js",
-    "static/js/2.b46fb55a.chunk.js",
+    "static/js/2.64eca28b.chunk.js",
     "static/css/main.a392491a.chunk.css",
-    "static/js/main.c9103d26.chunk.js"
+    "static/js/main.c24253ae.chunk.js"
   ]
 }
