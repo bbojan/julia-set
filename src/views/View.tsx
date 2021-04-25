@@ -13,6 +13,7 @@ export const View: FC<{}> = () => {
   const [factor, setFactor] = useState(2);
   const [option, setOption] = useState(0);
   const [expensive, setExpensive] = useState(false);
+  const [edge, setEdge] = useState(false);
 
   const [text, setText] = useState("");
 
@@ -28,8 +29,8 @@ export const View: FC<{}> = () => {
   return (
     <div className="App">
       <div style={{ position: "relative", margin: 8 }}>
-        {code === "main" && <CanvasMain factor={factor} />}
-        {code === "worker" && <CanvasWorker factor={factor} />}
+        {code === "main" && <CanvasMain factor={factor} edge={edge} />}
+        {code === "worker" && <CanvasWorker factor={factor} edge={edge} />}
         <CanvasCircle />
       </div>
       <div>
@@ -70,6 +71,17 @@ export const View: FC<{}> = () => {
             />
             <span>Paint on Worker thread</span>
           </p>
+        </div>
+        <div>
+          <label>
+            <span>Edge (SLOW)</span>
+            <input
+              name="edge"
+              type="checkbox"
+              checked={edge}
+              onChange={() => setEdge((e) => !e)}
+            />
+          </label>
         </div>
         <div>
           {blurs.map((v, i) => {

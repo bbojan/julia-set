@@ -19,9 +19,8 @@ export function usePaintCircle(
     if (!ctx) return;
 
     // alpha
-    const w = canvasRef.current?.width || 1;
-    const h = canvasRef.current?.height || 1;
-    ctx.clearRect(0, 0, w, h);
+    const { width, height } = canvas;
+    ctx.clearRect(0, 0, width, height);
     // alpha
 
     paintCircle(ctx, circle);

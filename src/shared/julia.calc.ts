@@ -1,8 +1,9 @@
 import glur from "glur";
+import Sobel from "../Sobel";
 import { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {
-  const { height, width, creal, cimag, factor } = options;
+  const { height, width, creal, cimag, factor, edge } = options;
   const f = Math.floor(factor || 0);
 
   const w = width;
@@ -40,7 +41,12 @@ export function jCalculateArray(options: IJuliaOptions) {
 
   glur(array, w, h, f);
 
-  return array;
+  if (edge) {
+    const bytes = Sobel(Sobel.FakeImageData(array, w, h));
+    return bytes;
+  } else {
+    return array;
+  }
 }
 
 export function jAnimate(frame: number): IJuliaParams {
