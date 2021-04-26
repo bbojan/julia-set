@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/julia-set/static/css/main.536d4399.chunk.css",
-    "main.js": "/julia-set/static/js/main.0eef8f74.chunk.js",
-    "main.js.map": "/julia-set/static/js/main.0eef8f74.chunk.js.map",
+    "main.css": "/julia-set/static/css/main.afb8dd65.chunk.css",
+    "main.js": "/julia-set/static/js/main.aab50916.chunk.js",
+    "main.js.map": "/julia-set/static/js/main.aab50916.chunk.js.map",
     "runtime-main.js": "/julia-set/static/js/runtime-main.ba053f46.js",
     "runtime-main.js.map": "/julia-set/static/js/runtime-main.ba053f46.js.map",
     "static/js/2.44bd4f3a.chunk.js": "/julia-set/static/js/2.44bd4f3a.chunk.js",
@@ -12,13 +12,13 @@
     "d8c8829f7b91d45d3a22.worker.js": "/julia-set/d8c8829f7b91d45d3a22.worker.js",
     "d8c8829f7b91d45d3a22.worker.js.map": "/julia-set/d8c8829f7b91d45d3a22.worker.js.map",
     "index.html": "/julia-set/index.html",
-    "static/css/main.536d4399.chunk.css.map": "/julia-set/static/css/main.536d4399.chunk.css.map",
+    "static/css/main.afb8dd65.chunk.css.map": "/julia-set/static/css/main.afb8dd65.chunk.css.map",
     "static/js/2.44bd4f3a.chunk.js.LICENSE.txt": "/julia-set/static/js/2.44bd4f3a.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.ba053f46.js",
     "static/js/2.44bd4f3a.chunk.js",
-    "static/css/main.536d4399.chunk.css",
-    "static/js/main.0eef8f74.chunk.js"
+    "static/css/main.afb8dd65.chunk.css",
+    "static/js/main.aab50916.chunk.js"
   ]
 }
