@@ -10,6 +10,8 @@ export function useMouseMove(
   const capturedRef = useRef(false);
 
   useEffect(() => {
+    const canvas = canvasRef.current;
+
     const onmousedown = (ev: MouseEvent) => {
       const x = xRef.current;
       const y = yRef.current;
@@ -20,7 +22,9 @@ export function useMouseMove(
 
       if (hit) {
         capturedRef.current = true;
-        document.body.style.cursor = "grabbing";
+        if (canvas) {
+          canvas.style.cursor = "grabbing";
+        }
       }
     };
     const onmousemove = (ev: MouseEvent) => {
@@ -31,11 +35,14 @@ export function useMouseMove(
     };
     const onmouseup = (ev: MouseEvent) => {
       capturedRef.current = false;
-      document.body.style.cursor = "grab";
+
+      if (canvas) {
+        canvas.style.cursor = "grab";
+      }
     };
 
-    const canvas = canvasRef.current;
     if (canvas) {
+      canvas.style.cursor = "grab";
       canvas.onmousedown = onmousedown;
       window.onmousemove = onmousemove;
       window.onmouseup = onmouseup;
