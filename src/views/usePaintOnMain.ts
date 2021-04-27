@@ -1,4 +1,4 @@
-import { MutableRefObject, useRef } from "react";
+import { MutableRefObject, useCallback, useRef } from "react";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { jAnimate, jCalculateArray } from "../shared/julia.calc";
 import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
@@ -16,32 +16,37 @@ export function usePaintOnMain(
   const edgeRef = useRef(edge);
   edgeRef.current = edge;
 
-  useRequestAnimationFrame(async (delta) => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-    const ctx = ctxRef.current;
-    if (!ctx) return;
+  useRequestAnimationFrame(
+    useCallback(
+      async (delta) => {
+        const canvas = canvasRef.current;
+        if (!canvas) return;
+        const ctx = ctxRef.current;
+        if (!ctx) return;
 
-    const { width, height } = canvas;
+        const { width, height } = canvas;
 
-    const resolution: IJuliaResolution = {
-      width: width || 960,
-      height: height || 540,
-      factor: factorRef.current,
-      edge: edgeRef.current,
-    };
+        const resolution: IJuliaResolution = {
+          width: width || 960,
+          height: height || 540,
+          factor: factorRef.current,
+          edge: edgeRef.current,
+        };
 
-    frame.current = frame.current + 1;
-    const params = jAnimate(frame.current);
+        frame.current = frame.current + 1;
+        const params = jAnimate(frame.current);
 
-    const options: IJuliaOptions = { ...resolution, ...params };
-    const values = jCalculateArray(options);
+        const options: IJuliaOptions = { ...resolution, ...params };
+        const values = jCalculateArray(options);
 
-    const img = new ImageData(values, resolution.width, resolution.height);
-    ctx.putImageData(img, 0, 0);
+        const img = new ImageData(values, resolution.width, resolution.height);
+        ctx.putImageData(img, 0, 0);
 
-    fps(true, delta);
+        fps(true, delta);
 
-    return Promise.resolve();
-  });
+        return Promise.resolve();
+      },
+      [ctxRef, canvasRef]
+    )
+  );
 }

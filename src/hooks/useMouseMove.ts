@@ -55,7 +55,7 @@ export function useMouseMove(
         window.onmouseup = null;
       }
     };
-  }, []);
+  }, [canvasRef, hitTest]);
 
   return { xRef, yRef };
 }

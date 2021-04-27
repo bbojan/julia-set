@@ -13,7 +13,7 @@ export function useInterval(timeout: number, callback: () => void) {
     return () => {
       clearInterval(id);
     };
-  }, []);
+  }, [callback, timeout]);
 }
 
 export function useRequestAnimationFrame(
@@ -34,7 +34,7 @@ export function useRequestAnimationFrame(
 
     requestRef.current = requestAnimationFrame(callback);
     return () => cancelAnimationFrame(requestRef.current);
-  }, []);
+  }, [animate]);
 }
 
 export function formatedTime() {

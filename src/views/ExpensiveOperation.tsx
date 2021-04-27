@@ -9,7 +9,7 @@ export const ExpensiveOperation: FC<{}> = memo(() => {
 
   const workerRef = useWorker();
 
-  const input = 5 * 1000 * 1000 * 1000;
+  const input = 3 * 1000 * 1000 * 1000;
 
   useEffect(() => {
     const worker = workerRef.current;
@@ -25,7 +25,7 @@ export const ExpensiveOperation: FC<{}> = memo(() => {
         )
         .then((o) => setFinal(o.result.toFixed()));
     }
-  }, []);
+  }, [input, workerRef]);
 
   return (
     <div style={{ marginTop: 16, fontSize: 16 }}>
