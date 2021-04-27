@@ -1,4 +1,5 @@
 import { FC, useEffect, useMemo, useState } from "react";
+import ReactList from "react-list";
 import { CanvasCircle } from "./CanvasCircle";
 import { CanvasMain } from "./CanvasMain";
 import { CanvasWorker } from "./CanvasWorker";
@@ -105,21 +106,28 @@ export const View: FC<{}> = () => {
 
       <div>
         <div style={{ overflowY: "scroll", width: 150, height: 640 }}>
-          {list.map((v) => {
-            return (
-              <p key={v}>
-                <input
-                  type="radio"
-                  key={v}
-                  value={v}
-                  name={`Option ${v}`}
-                  checked={option === v}
-                  onChange={(e) => setOption(+e.target.value)}
-                />
-                <span>Option {v}</span>
-              </p>
-            );
-          })}
+          <ReactList
+            type={"uniform"}
+            useStaticSize={true}
+            itemSizeGetter={() => 30}
+            length={list.length}
+            itemRenderer={(idx) => {
+              const v = list[idx];
+              return (
+                <p key={v}>
+                  <input
+                    type="radio"
+                    key={v}
+                    value={v}
+                    name={`Option ${v}`}
+                    checked={option === v}
+                    onChange={(e) => setOption(+e.target.value)}
+                  />
+                  <span>Option {v}</span>
+                </p>
+              );
+            }}
+          />
         </div>
       </div>
       <div
