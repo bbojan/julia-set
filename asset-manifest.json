@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/julia-set/static/css/main.7dcf3804.css",
-    "main.js": "/julia-set/static/js/main.1be1428f.js",
+    "main.js": "/julia-set/static/js/main.55b70328.js",
     "static/js/787.73150fb5.chunk.js": "/julia-set/static/js/787.73150fb5.chunk.js",
     "worker.js": "/julia-set/3a4fd18dd7588a94abcc.worker.js",
     "index.html": "/julia-set/index.html",
     "main.7dcf3804.css.map": "/julia-set/static/css/main.7dcf3804.css.map",
-    "main.1be1428f.js.map": "/julia-set/static/js/main.1be1428f.js.map",
+    "main.55b70328.js.map": "/julia-set/static/js/main.55b70328.js.map",
     "787.73150fb5.chunk.js.map": "/julia-set/static/js/787.73150fb5.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.7dcf3804.css",
-    "static/js/main.1be1428f.js"
+    "static/js/main.55b70328.js"
   ]
 }
