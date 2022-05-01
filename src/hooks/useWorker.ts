@@ -10,11 +10,10 @@ export function useWorker() {
     const worker = createWorkerClient();
     workerRef.current = worker;
     return () => {
-      const wrkr = (worker as unknown) as Worker;
-      if (wrkr) {
+      if (worker) {
         delayed(1).then(async () => {
           try {
-            await wrkr.terminate();
+            await worker.dispose();
           } catch (e) {}
         });
         workerRef.current = null;

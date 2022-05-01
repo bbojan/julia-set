@@ -14,7 +14,7 @@ export const View: FC<{}> = () => {
   const [factor, setFactor] = useState(2);
   const [option, setOption] = useState(0);
   const [expensive, setExpensive] = useState(false);
-  const [edge, setEdge] = useState(false);
+  const [edge, setEdge] = useState(true);
 
   const [text, setText] = useState("");
 

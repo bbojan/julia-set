@@ -1,5 +1,5 @@
 import glur from "glur";
-import Sobel from "../Sobel";
+import Sobel from "../external/Sobel";
 import { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {

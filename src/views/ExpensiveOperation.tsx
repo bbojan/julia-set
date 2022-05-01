@@ -29,12 +29,10 @@ export const ExpensiveOperation: FC<{}> = memo(() => {
 
   return (
     <div style={{ marginTop: 16, fontSize: 16 }}>
-      <p>Expensive</p>
-      <p>Operation</p>
+      <p>Expensive Operation</p>
       <p>input</p>
       <p>{input}</p>
-      <p>done</p>
-      <p>{Math.ceil(status + 1).toFixed()} %</p>
+      <p>{Math.ceil(status + 1).toFixed()} % done</p>
       <p>final result</p>
       <p>{final}</p>
     </div>

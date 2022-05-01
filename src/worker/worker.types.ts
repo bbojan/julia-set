@@ -16,4 +16,6 @@ export interface IWorkerClient {
     callback: (status: number) => void,
     ask: (v: number) => Promise<number>
   ): Promise<IExpensiveOperationResponse>;
+
+  dispose(): Promise<void>;
 }

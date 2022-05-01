@@ -11,11 +11,14 @@ export const Clock: FC<{}> = memo(() => {
   const ts = formatedTime();
 
   return (
-    <header className="App-header">
-      <p>Julia set</p>
-      <p>{count}</p>
-      <p>{ts[0]}</p>
-      <p>{ts[1]}</p>
-    </header>
+    <div>
+      <p>Drag the yellow circle</p>
+      <header className="App-header">
+        <p>Julia set</p>
+        <p>{count}</p>
+        <p>{ts[0]}</p>
+        <p>{ts[1]}</p>
+      </header>
+    </div>
   );
 });
