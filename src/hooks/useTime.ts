@@ -44,3 +44,16 @@ export function formatedTime() {
     `${d.getSeconds()},${d.getMilliseconds()}`,
   ];
 }
+
+export function useOnRAFe(action: () => void) {
+  const requestRef = useRef<number>(0);
+  useEffect(() => {
+    const callback: FrameRequestCallback = async () => {
+      action();
+      requestRef.current = requestAnimationFrame(callback);
+    };
+    requestRef.current = requestAnimationFrame(callback);
+    return () => cancelAnimationFrame(requestRef.current);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+}

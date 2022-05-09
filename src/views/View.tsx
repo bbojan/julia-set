@@ -20,7 +20,7 @@ export const View: FC<{}> = () => {
 
   useEffect(() => {
     //
-    fetch("https://unpkg.com/react@17.0.2/umd/react.development.js")
+    fetch("https://unpkg.com/react@18/umd/react.development.js")
       .then((r) => r.text())
       .then((t) => {
         setText(t);
