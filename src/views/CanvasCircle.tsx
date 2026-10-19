@@ -1,10 +1,11 @@
-import { FC, memo } from "react";
+import type { FC } from "react";
+import { memo } from "react";
 import { useCanvas } from "../hooks/useCanvas";
 import { useCircle } from "../hooks/useCircle";
 import { K_Resolution } from "./paint";
 import { usePaintCircle } from "./usePaintCircle";
 
-export const CanvasCircle: FC<{}> = memo((props) => {
+export const CanvasCircle: FC<{}> = memo(() => {
   const { canvasRef, ctxRef } = useCanvas();
   const circle = useCircle(canvasRef);
 

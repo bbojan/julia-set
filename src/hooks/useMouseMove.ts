@@ -1,8 +1,9 @@
-import { MutableRefObject, useEffect, useRef } from "react";
+import type { MutableRefObject } from "react";
+import { useEffect, useRef } from "react";
 
 export function useMouseMove(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
-  hitTest: (points: { x: number; y: number; ex: number; ey: number }) => boolean
+  hitTest: (points: { x: number; y: number; ex: number; ey: number }) => boolean,
 ) {
   const xRef = useRef(50);
   const yRef = useRef(50);
@@ -33,7 +34,7 @@ export function useMouseMove(
         yRef.current = ev.pageY;
       }
     };
-    const onmouseup = (ev: MouseEvent) => {
+    const onmouseup = () => {
       capturedRef.current = false;
 
       if (canvas) {

@@ -1,15 +1,16 @@
-import { MutableRefObject, useCallback, useRef } from "react";
+import type { MutableRefObject } from "react";
+import { useCallback, useRef } from "react";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { useWorker } from "../hooks/useWorker";
 import { jAnimate } from "../shared/julia.calc";
-import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
+import type { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
 import { fps } from "./paint";
 
 export function usePaintOnWorker(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
   ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
   factor?: number,
-  edge?: boolean
+  edge?: boolean,
 ) {
   const frame = useRef(0);
   const factorRef = useRef(factor || 0);
@@ -20,7 +21,7 @@ export function usePaintOnWorker(
   const workerRef = useWorker();
 
   const isCalculatingRef = useRef(false);
-  const arrayRef = useRef<Uint8ClampedArray | null>(null);
+  const arrayRef = useRef<Uint8ClampedArray<ArrayBuffer> | null>(null);
 
   useRequestAnimationFrame(
     useCallback(
@@ -62,7 +63,7 @@ export function usePaintOnWorker(
 
         return Promise.resolve();
       },
-      [ctxRef, canvasRef, workerRef]
-    )
+      [ctxRef, canvasRef, workerRef],
+    ),
   );
 }

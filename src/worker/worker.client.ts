@@ -1,7 +1,8 @@
 import * as Comlink from "comlink";
-import { IJuliaOptions } from "../shared/julia.types";
-import WorkerServer, { WorkerServerConstructor } from "./server/worker.server";
-import {
+import type { IJuliaOptions } from "../shared/julia.types";
+import type { WorkerServerConstructor } from "./server/worker.server";
+import type WorkerServer from "./server/worker.server";
+import type {
   IExpensiveOperationOptions,
   IExpensiveOperationResponse,
   IWorkerClient,
@@ -12,9 +13,9 @@ class WorkerClient implements IWorkerClient {
   private proxy: Comlink.Remote<WorkerServer> | null;
 
   constructor() {
-    this.worker = new Worker(
-      new URL("./server/worker.server.ts", import.meta.url)
-    );
+    this.worker = new Worker(new URL("./server/worker.server.ts", import.meta.url), {
+      type: "module",
+    });
     this.proxy = null;
   }
 
@@ -40,7 +41,7 @@ class WorkerClient implements IWorkerClient {
   public async expensiveOperation(
     options: IExpensiveOperationOptions,
     callback: (status: number) => void,
-    ask: (v: number) => Promise<number>
+    ask: (v: number) => Promise<number>,
   ): Promise<IExpensiveOperationResponse> {
     await this.init();
     return this.proxy!.expensiveOperation(options, callback, ask);

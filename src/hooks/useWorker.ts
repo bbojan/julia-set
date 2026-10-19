@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import { createWorkerClient } from "../worker/worker.client";
-import { IWorkerClient } from "../worker/worker.types";
+import type { IWorkerClient } from "../worker/worker.types";
 import { delayed } from "./useTime";
 
 export function useWorker() {

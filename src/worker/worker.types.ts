@@ -1,4 +1,4 @@
-import { IJuliaOptions } from "../shared/julia.types";
+import type { IJuliaOptions } from "../shared/julia.types";
 
 export interface IExpensiveOperationResponse {
   result: number;
@@ -9,12 +9,12 @@ export interface IExpensiveOperationOptions {
 }
 
 export interface IWorkerClient {
-  calculate(options: IJuliaOptions): Promise<Uint8ClampedArray>;
+  calculate(options: IJuliaOptions): Promise<Uint8ClampedArray<ArrayBuffer>>;
 
   expensiveOperation(
     options: IExpensiveOperationOptions,
     callback: (status: number) => void,
-    ask: (v: number) => Promise<number>
+    ask: (v: number) => Promise<number>,
   ): Promise<IExpensiveOperationResponse>;
 
   dispose(): Promise<void>;

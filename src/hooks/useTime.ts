@@ -17,7 +17,7 @@ export function useInterval(timeout: number, callback: () => void) {
 }
 
 export function useRequestAnimationFrame(
-  animate: (deltaTime: number, time: number) => Promise<unknown>
+  animate: (deltaTime: number, time: number) => Promise<unknown>,
 ) {
   const requestRef = useRef<number>(0);
   const previousTimeRef = useRef<number>(0);
@@ -39,10 +39,7 @@ export function useRequestAnimationFrame(
 
 export function formatedTime() {
   const d = new Date();
-  return [
-    `${d.getHours()}:${d.getMinutes()}`,
-    `${d.getSeconds()},${d.getMilliseconds()}`,
-  ];
+  return [`${d.getHours()}:${d.getMinutes()}`, `${d.getSeconds()},${d.getMilliseconds()}`];
 }
 
 export function useOnRAFe(action: () => void) {

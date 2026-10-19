@@ -1,10 +1,15 @@
-import { FC, useEffect, useMemo, useState } from "react";
-import ReactList from "react-list";
+import type { FC } from "react";
+import { useEffect, useMemo, useState } from "react";
+import ReactListModule from "react-list";
 import { CanvasCircle } from "./CanvasCircle";
 import { CanvasMain } from "./CanvasMain";
 import { CanvasWorker } from "./CanvasWorker";
 import { Clock } from "./Clock";
 import { ExpensiveOperation } from "./ExpensiveOperation";
+
+// react-list ships a UMD build, so the CJS interop hands back the whole exports object
+const ReactList =
+  (ReactListModule as unknown as { default?: typeof ReactListModule }).default ?? ReactListModule;
 
 export const View: FC<{}> = () => {
   const blurs = useMemo(() => Array.from(Array(14).keys()), []);
@@ -76,12 +81,7 @@ export const View: FC<{}> = () => {
         <div>
           <label>
             <span>Edge (SLOW)</span>
-            <input
-              name="edge"
-              type="checkbox"
-              checked={edge}
-              onChange={() => setEdge((e) => !e)}
-            />
+            <input name="edge" type="checkbox" checked={edge} onChange={() => setEdge((e) => !e)} />
           </label>
         </div>
         <div>

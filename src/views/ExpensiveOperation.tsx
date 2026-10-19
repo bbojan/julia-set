@@ -1,5 +1,6 @@
 import * as Comlink from "comlink";
-import { FC, memo, useEffect, useState } from "react";
+import type { FC } from "react";
+import { memo, useEffect, useState } from "react";
 import { delayed } from "../hooks/useTime";
 import { useWorker } from "../hooks/useWorker";
 
@@ -18,11 +19,7 @@ export const ExpensiveOperation: FC<{}> = memo(() => {
       const ask = (v: number) => delayed(1).then(() => v * 3);
 
       worker
-        .expensiveOperation(
-          { value: input },
-          Comlink.proxy(callback),
-          Comlink.proxy(ask)
-        )
+        .expensiveOperation({ value: input }, Comlink.proxy(callback), Comlink.proxy(ask))
         .then((o) => setFinal(o.result.toFixed()));
     }
   }, [input, workerRef]);

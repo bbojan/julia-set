@@ -1,4 +1,4 @@
-(function (root) {
+const Sobel = (function () {
   function Sobel(imageData) {
     if (!(this instanceof Sobel)) {
       return new Sobel(imageData);
@@ -121,11 +121,10 @@
     };
   }
 
-  if (typeof exports !== "undefined") {
-    if (typeof module !== "undefined" && module.exports) {
-      exports = module.exports = Sobel;
-    }
-    exports.Sobel = Sobel;
-    exports.FakeImageData = FakeImageData;
-  }
-})(this);
+  Sobel.Sobel = Sobel;
+  Sobel.FakeImageData = FakeImageData;
+
+  return Sobel;
+})();
+
+export default Sobel;

@@ -1,16 +1,11 @@
 import { jCalculateArray } from "../../shared/julia.calc";
-import { IJuliaOptions } from "../../shared/julia.types";
-import {
-  IExpensiveOperationOptions,
-  IExpensiveOperationResponse,
-} from "../worker.types";
+import type { IJuliaOptions } from "../../shared/julia.types";
+import type { IExpensiveOperationOptions, IExpensiveOperationResponse } from "../worker.types";
 import { fixReactRefreshInWorker } from "./fixReactRefresh";
 
 fixReactRefreshInWorker();
 
-export function calculateImplementation(
-  options: IJuliaOptions
-): Uint8ClampedArray {
+export function calculateImplementation(options: IJuliaOptions): Uint8ClampedArray<ArrayBuffer> {
   const array = jCalculateArray(options);
   return array;
 }
@@ -18,7 +13,7 @@ export function calculateImplementation(
 export async function calculateExpensiveOperation(
   options: IExpensiveOperationOptions,
   callback: (status: number) => void,
-  ask: (v: number) => Promise<number>
+  ask: (v: number) => Promise<number>,
 ): Promise<IExpensiveOperationResponse> {
   const per = Math.ceil(options.value / 100);
 

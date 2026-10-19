@@ -1,4 +1,5 @@
-import { MutableRefObject, useCallback } from "react";
+import type { MutableRefObject } from "react";
+import { useCallback } from "react";
 import { useMouseMove } from "./useMouseMove";
 
 export interface ICircle {
@@ -7,9 +8,7 @@ export interface ICircle {
   radius: number;
 }
 
-export function useCircle(
-  canvasRef: MutableRefObject<HTMLCanvasElement | null>
-): ICircle {
+export function useCircle(canvasRef: MutableRefObject<HTMLCanvasElement | null>): ICircle {
   const radius = 40;
 
   const { xRef, yRef } = useMouseMove(
@@ -19,8 +18,8 @@ export function useCircle(
         const distance = Math.sqrt((x - ex) * (x - ex) + (y - ey) * (y - ey));
         return distance < radius;
       },
-      [radius]
-    )
+      [radius],
+    ),
   );
 
   return { xRef, yRef, radius };

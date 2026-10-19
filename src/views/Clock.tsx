@@ -1,4 +1,5 @@
-import { FC, memo, useState } from "react";
+import type { FC } from "react";
+import { memo, useState } from "react";
 import { useOnRAFe } from "../hooks/useTime";
 
 export const Clock: FC<{}> = memo(() => {

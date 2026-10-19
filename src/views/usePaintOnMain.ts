@@ -1,14 +1,15 @@
-import { MutableRefObject, useCallback, useRef } from "react";
+import type { MutableRefObject } from "react";
+import { useCallback, useRef } from "react";
 import { useRequestAnimationFrame } from "../hooks/useTime";
 import { jAnimate, jCalculateArray } from "../shared/julia.calc";
-import { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
+import type { IJuliaOptions, IJuliaResolution } from "../shared/julia.types";
 import { fps } from "./paint";
 
 export function usePaintOnMain(
   canvasRef: MutableRefObject<HTMLCanvasElement | null>,
   ctxRef: MutableRefObject<CanvasRenderingContext2D | null>,
   factor?: number,
-  edge?: boolean
+  edge?: boolean,
 ) {
   const frame = useRef(0);
   const factorRef = useRef(factor || 0);
@@ -46,7 +47,7 @@ export function usePaintOnMain(
 
         return Promise.resolve();
       },
-      [ctxRef, canvasRef]
-    )
+      [ctxRef, canvasRef],
+    ),
   );
 }

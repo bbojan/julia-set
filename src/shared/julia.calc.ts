@@ -1,6 +1,6 @@
-import glur from "glur";
+import { blurRGBA } from "glur";
 import Sobel from "../external/Sobel";
-import { IJuliaOptions, IJuliaParams } from "./julia.types";
+import type { IJuliaOptions, IJuliaParams } from "./julia.types";
 
 export function jCalculateArray(options: IJuliaOptions) {
   const { height, width, creal, cimag, factor, edge } = options;
@@ -39,7 +39,7 @@ export function jCalculateArray(options: IJuliaOptions) {
     }
   }
 
-  glur(array, w, h, f);
+  blurRGBA(array, w, h, f);
 
   if (edge) {
     const bytes = Sobel(Sobel.FakeImageData(array, w, h));
