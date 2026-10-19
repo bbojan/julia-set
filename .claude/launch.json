@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "julia-set",
+      "runtimeExecutable": "pnpm",
+      "runtimeArgs": ["dev", "--port", "5179", "--strictPort"],
+      "port": 5179
+    }
+  ]
+}
